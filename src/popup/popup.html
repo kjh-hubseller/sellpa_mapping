@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="popup.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+   <title>셀파 매핑</title>
+</head>
+<body>
+   <div class="login">
+      <h2>셀파 매핑 로그인</h2>
+      <div class="login__info">
+         <div>
+            <label for="login_id"><span>아이디</span></label>
+            <input type="text" name="login_id" id="login_id" value="lsh01">
+         </div>
+         <div>
+            <label for="login_pw"><span>패스워드</span></label>
+            <input type="password" name="login_pw" id="login_pw" value="7272@@">
+         </div>
+      </div>
+      <div class="login__status__button">
+         <label for="sellpa">셀오토(셀파)</label>
+         <input type="radio" name="login_site" id="sellpa" value="sellpa" checked required>
+         <label for="sellpazg">셀파크롤러(셀파직구)</label>
+         <input type="radio" name="login_site" id="sellpazg" value="sellpazg" required>
+      </div>
+      <div class="login__button">
+         <button name="login__btn" id="login__btn">로그인</button>
+      </div>
+   </div>
+   
+   <script src="/src/js/jquery.js"></script>
+   <script src="popup.js"></script>
+</body>
+</html>

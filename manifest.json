@@ -1,0 +1,43 @@
+{
+    "manifest_version": 3,
+    "version": "0.0.1",
+    "name": "셀파 매핑",
+    "description": "셀파 매핑 확장 프로그램",
+    "short_name": "셀파",
+    "action": {
+        "default_icon": {
+            "16": "src/images/logo.png",
+            "24": "src/images/logo.png",
+            "32": "src/images/logo.png"
+        },
+        "default_title": "셀파 매핑",
+        "default_popup": "src/popup/popup.html"
+    },
+    "content_scripts": [{
+        "matches": [
+            "https://mp.cafe24.com/mp/product/*"
+        ],
+        "js": [
+            "src/js/jquery.js",
+            "src/js/find_category.js"
+        ]
+    }],
+    "icons": {
+        "16": "src/images/logo.png",
+        "48": "src/images/logo.png",
+        "128": "src/images/logo.png",
+        "256": "src/images/logo.png"
+    },
+    "background": {
+        "service_worker": "src/background/background.js",
+        "type": "module"
+    },
+    "permissions": [
+        "scripting",
+        "tabs",
+        "storage"
+    ],
+    "host_permissions": [
+        "*://*/*"
+    ]
+}
