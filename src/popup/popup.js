@@ -1,6 +1,3 @@
-chrome.storage.sync.get('api_key', item => {
-    console.log(item['api_key'])
-})
 $(document).on('click', '#login__btn', () => {
     const site_value = $('input[name=login_site]:checked')[0].value
     const site_url = 'https://www.sellpazg.co.kr/api/sm/smAuthApi.php'

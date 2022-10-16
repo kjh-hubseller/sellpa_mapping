@@ -81,7 +81,7 @@ window.onload = () => {
         //         console.log(data)
         //     }
         // })
-        getHubsellerCategory()
+        getHubsellerCategory('티셔츠')
         // categoryList = [...document.getElementsByClassName('mBoard')[0].
         //                 getElementsByTagName('table')[0].
         //                 getElementsByTagName('tr')].slice(1)

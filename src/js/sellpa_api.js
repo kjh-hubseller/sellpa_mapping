@@ -16,8 +16,9 @@ const login = (curData, site_url) => {
                     'isLoggined': "Y",
                     'site_url': site_url,
                     'user_id': curData.memberId,
-                    'api_key': memberCode.trim()
-                }, () => {
+                    'api_key': memberCode.trim(),
+                    'login_time': cur_datetime()
+                }, _ => {
                     alert('로그인이 완료되었습니다.')
                     window.close()
                 })
@@ -31,14 +32,62 @@ const login = (curData, site_url) => {
         }
     })
 }
-const getHubsellerCategory = (categoryIndex = '') => {
+/**
+ * category search method
+ * @param searchField code or name
+ * @param categoryCN cateCode(3 ~ 12) or cateName(티셔츠)
+ */
+const getHubsellerCategory = (categoryCN = '', searchField = 'name') => {
     chrome.storage.sync.get(['api_key', 'user_id'], item => {
+        const curData = {
+            'memberId': item['user_id'],
+            'apiKeySig': item['api_key'],
+            'apiTime': cur_datetime(),
+            'mode': 'list',
+            'searchField' : searchField,
+            'searchKey': categoryCN
+        }
         $.ajax({
             method: "POST",
             url: 'https://www.sellpazg.co.kr/api/sm/smCateStdApi.php',
             dataType: "json",
             crossDomain: true,
             data: curData,
+            success: function(res) {
+                console.log(res)
+            },
+            error: function(xhr, status) {
+                console.log(xhr)
+                console.log(status)
+                alert('조회에 실패하였습니다.')
+            }
+        })
+    })
+}
+const getShoppingMallCategory = (categoryName = '', categoryCode = '') => {
+    chrome.storage.sync.get(['api_key', 'user_id'], item => {
+        const curData = {
+            'memberId': item['user_id'],
+            'apiKeySig': item['api_key'],
+            'apiTime': cur_datetime(),
+            'mode': 'list',
+            'cateCode' : categoryCode,
+            'cateName': categoryName
+        }
+        $.ajax({
+            method: "POST",
+            url: 'https://www.sellpazg.co.kr/api/sm/smCateStdApi.php',
+            dataType: "json",
+            crossDomain: true,
+            data: curData,
+            success: function(res) {
+                console.log(res)
+            },
+            error: function(xhr, status) {
+                console.log(xhr)
+                console.log(status)
+                alert('조회에 실패하였습니다.')
+            }
         })
     })
 }
