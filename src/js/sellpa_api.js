@@ -49,12 +49,25 @@ const getHubsellerCategory = (categoryCN = '', searchField = 'name') => {
         }
         $.ajax({
             method: "POST",
-            url: 'https://www.sellpazg.co.kr/api/sm/smCateStdApi.php',
+            url: 'https://www.sellpazg.co.kr/api/sm/smCateStdSchApi.php',
             dataType: "json",
             crossDomain: true,
             data: curData,
             success: function(res) {
-                console.log(res)
+                if(res["RET_ALL"] !== "Y"){
+                    alert('조회에 실패하였습니다.')
+                    return
+                }
+                const s__category__list = document.getElementById('s__category__list')
+                s__category__list.innerHTML = ''
+
+                for(let item of res["CATE_LIST"]){
+                    let opt = document.createElement('option')
+                    // opt.value = item['CODE']
+                    opt.value = item['NAME']
+                    opt.innerText = item['NAME']
+                    s__category__list.appendChild(opt)
+                }
             },
             error: function(xhr, status) {
                 console.log(xhr)
@@ -76,12 +89,14 @@ const getShoppingMallCategory = (categoryName = '', categoryCode = '') => {
         }
         $.ajax({
             method: "POST",
-            url: 'https://www.sellpazg.co.kr/api/sm/smCateStdApi.php',
+            url: 'https://www.sellpazg.co.kr/api/sm/smCateExtlApi.php',
             dataType: "json",
             crossDomain: true,
             data: curData,
+            async: false,
             success: function(res) {
                 console.log(res)
+                return res
             },
             error: function(xhr, status) {
                 console.log(xhr)

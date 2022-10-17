@@ -15,11 +15,13 @@
         },
         {
         "matches": [
-            "https://mp.cafe24.com/mp/product/*"
+            "https://mp.cafe24.com/mp/*"
         ],
         "run_at": "document_start",
         "js": [
             "src/library/jquery.js",
+            "src/ui/searchHubsellerCate.js",
+            "src/ui/searchButtonScript.js",
             "src/js/find_category.js"
         ]
     }],
