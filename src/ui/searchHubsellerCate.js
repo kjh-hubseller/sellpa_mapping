@@ -1,7 +1,7 @@
 const makeSearchHubsellerCategory = () => {
     const htmlCode = `<span id="n__category" style="width:15%; padding-right: 20px">셀파매핑 카테고리 : </span>
                       <input type="text" id="searchText" class="fText" style="width:62%">
-                      <input type="button" id="searchBtn" value="검색" style="width:20%" class="btnToggle selected">
+                      <input type="button" id="searchBtn" value="검색" style="width:20%; background-color: #336666; color: white;" class="btnToggle selected">
                       <select name="s__category__list" id="s__category__list" style="width:100%; margin-top: 5px;" class="fSelect">
                       </select>
                       

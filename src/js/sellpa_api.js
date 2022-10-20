@@ -101,6 +101,7 @@ const getShoppingMallCategory = () => {
             crossDomain: true,
             data: curData,
             success: function(res) {
+                console.log(res)
                 const ret_data = {}
                 if(res['RET_ALL'] !== 'Y'){
                     return;
@@ -122,15 +123,8 @@ const getShoppingMallCategory = () => {
                         let data = ret_data[shop_code[shopName]['CODE']]
                         categoryNumber = data['CODE'].split(',')
                         categoryNames = data['NAME'].split('>')
-                        for(const element of elements){
-                            // 생성한 MutationObserver Object를 Select 태그에 할당
-                            test(element, config, categoryNumber)
-                            observer.observe(element, config);
-                        }
-                        if(elements.length > 0){
-                            idx = 1;
-                            elements[0].value = categoryNumber[0]
-                            elements[0].dispatchEvent(new Event('change'))
+                        for(let idx = 0; idx < categoryNumber.length; idx++){
+                            checkChildCategory(elements[idx], categoryNumber[idx], categoryNames[idx])
                         }
                     }
                 })
@@ -141,36 +135,23 @@ const getShoppingMallCategory = () => {
                 alert('조회에 실패하였습니다.')
             }
         })
-        function test(elem, conf, value){
-            // 2. 옵저버 인스턴스 생성
-            const observer = new MutationObserver(function(mutations) {
-                if(mutations.length > 0){
-                    if(idx >= categoryNumber.length)
-                        idx = 1;
-
-                    const mutation = mutations[0]
-                    mutation.target.value = categoryNumber[idx]
-                    console.log(categoryNames, categoryNames[idx], categoryNumber, categoryNumber[idx], idx++)
-                    mutation.target.dispatchEvent(new Event('change'))
-                    // for(let child of mutation.target.childNodes){
-                    //     mutation.target.value = child.value
-                    // if(child.innerText == categoryNames[idx]){
-                    //     mutation.target.value = child.value
-                    //     isExist = true;
-                    //     break;
-                    // }
-                    // }
-                    // if(isExist){
-                    //
-                    //
-                    // }
+        const checkChildCategory = (element, code, name) => {
+            if(element.hasChildNodes()){
+                element.value = code
+                if(element.value === ''){
+                    element.childNodes.forEach(item => {
+                        if(item.innerText.trim() === name.trim()){
+                            element.value = item.value
+                            return false;
+                        }
+                    })
                 }
-            });
-
-            // 3. 옵션 설정
-            const config = {
-                attributes: true
-            };
+                element.dispatchEvent(new Event('change'))
+            }else{
+                setTimeout(() => {
+                    checkChildCategory(element, code, name)
+                }, 50)
+            }
         }
     })
 }
